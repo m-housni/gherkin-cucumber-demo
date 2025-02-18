@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs'); // Ensure bcryptjs is installed
 const jwt = require('jsonwebtoken');
 
 const app = express();
@@ -15,7 +15,7 @@ mongoose.connect(process.env.MONGO_URI).then(() => console.log("MongoDB Connecte
 
 // User Model
 const UserSchema = new mongoose.Schema({
-    email: String,
+    email: { type: String, unique: true },
     password: String
 });
 const User = mongoose.model("User", UserSchema);
@@ -27,11 +27,16 @@ app.get('/', (req, res) => {
 
 // Register API
 app.post('/register', async (req, res) => {
-    const { email, password } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({ email, password: hashedPassword });
-    await user.save();
-    res.json({ message: "User registered successfully" });
+    try {
+        const { email, password } = req.body;
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+        const user = new User({ email, password: hashedPassword });
+        await user.save();
+        res.json({ message: "User registered successfully" });
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error: error.message });
+    }
 });
 
 // Login API
