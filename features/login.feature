@@ -2,7 +2,7 @@ Feature: User Login
 
   Scenario: Successful login with valid credentials
     Given the user is on the login page
-    When the user enters "testuser@example.com" and "password123"
+    When the user enters "testuser1@example.com" and "password"
     And clicks on the login button
     Then the user should see the dashboard
 

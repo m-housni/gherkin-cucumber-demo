@@ -11,7 +11,7 @@ Given("the user is on the login page", async function () {
   }
   browser = await puppeteer.launch({ headless: true });
   page = await browser.newPage();
-  await page.goto("https://example.com/login"); // Replace with actual login page
+  await page.goto("http://localhost:5173"); // Replace with actual login page
 });
 
 When("the user enters {string} and {string}", async function (email, password) {
@@ -32,6 +32,6 @@ Then("the user should see the dashboard", async function () {
 
 Then("an error message should be displayed", async function () {
   const errorText = await page.$eval(".error", (el) => el.textContent);
-  expect(errorText).to.include("Invalid credentials");
+  expect(errorText).to.include("User not found");
   await browser.close();
 });

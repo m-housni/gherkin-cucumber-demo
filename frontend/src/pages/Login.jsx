@@ -23,9 +23,10 @@ export default function Login() {
     <div className="flex items-center justify-center h-screen bg-gray-100">
       <div className="bg-white p-6 rounded-lg shadow-lg w-96">
         <h2 className="text-2xl font-bold text-center mb-4">Login</h2>
-        {error && <p className="text-red-500 text-center">{error}</p>}
+        {error && <p className="error text-red-500 text-center">{error}</p>}
         <form onSubmit={handleLogin}>
           <input
+            id="email"
             type="email"
             placeholder="Email"
             className="w-full p-2 mb-2 border rounded"
@@ -33,13 +34,14 @@ export default function Login() {
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
+            id="password"
             type="password"
             placeholder="Password"
             className="w-full p-2 mb-2 border rounded"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded">
+          <button id="loginButton" type="submit" className="w-full bg-blue-500 text-white py-2 rounded">
             Login
           </button>
         </form>
