@@ -1,0 +1,4 @@
+{
+  "default": "--require features/stepDefinitions/*.js"
+}
+
