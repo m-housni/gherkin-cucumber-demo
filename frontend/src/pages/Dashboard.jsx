@@ -22,7 +22,7 @@ export default function Dashboard() {
   }, [navigate]);
 
   return (
-    <div className="flex items-center justify-center h-screen bg-green-100">
+    <div className="dashboard flex items-center justify-center h-screen bg-green-100">
       <h1 className="text-3xl font-bold">{message}</h1>
     </div>
   );
